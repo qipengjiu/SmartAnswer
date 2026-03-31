@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "supabase@codebuddy-plugins-official": true
+  }
+}

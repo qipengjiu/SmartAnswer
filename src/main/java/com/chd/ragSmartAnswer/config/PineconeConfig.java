@@ -1,8 +1,7 @@
 package com.chd.ragSmartAnswer.config;
 
-import dev.langchain4j.data.segment.TextSegment;
+
 import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.pinecone.PineconeEmbeddingStore;
 import dev.langchain4j.store.embedding.pinecone.PineconeServerlessIndexConfig;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +26,22 @@ public class PineconeConfig {
 
     @Value("${pinecone.namespace}")
     private String pineconeNamespace;
+    
+
+    /**
+     * 初始化Pinecone向量存储，用于存储分块后的文本向量
+     */
     @Bean
-    public EmbeddingStore<TextSegment> embeddingStore(EmbeddingModel embeddingModel) {
+    public PineconeEmbeddingStore pineconeEmbeddingStore(EmbeddingModel embeddingModel) {
+        // 获取向量模型维度（text-embedding-v3为1024）
+        int dimension = embeddingModel.dimension();
+
         return PineconeEmbeddingStore.builder()
                 .apiKey(pineconeApiKey)
                 .index(pineconeIndex)
                 .nameSpace(pineconeNamespace)
                 .createIndex(PineconeServerlessIndexConfig.builder()
-                        .dimension(embeddingModel.dimension())
+                        .dimension(dimension)
                         .cloud("AWS")
                         .region(pineconeRegion)
                         .build())

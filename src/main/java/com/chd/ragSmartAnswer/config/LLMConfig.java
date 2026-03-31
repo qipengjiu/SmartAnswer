@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 测试大模型连通性，后续删除
+ */
 @Configuration
 public class LLMConfig {
 

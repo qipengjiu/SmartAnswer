@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 阿里百炼text-embedding-v3向量模型配置
+ * 阿里百炼text-embedding-v3向量模型配置,
+ * 为语义分块和向量检索提供向量化能力
  */
 @Configuration
 public class EmbeddingConfig {
