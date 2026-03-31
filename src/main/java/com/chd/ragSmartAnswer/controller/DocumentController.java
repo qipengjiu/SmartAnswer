@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chd.ragSmartAnswer.Result.Result;
 import com.chd.ragSmartAnswer.entity.DocumentForm;
+import com.service.DocumentService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,11 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DocumentController {
     
+    private final DocumentService documentService;
 
     @Operation(summary = "文档上传并入库向量库")
     @PostMapping("/upload")
     public Result<String> uploadDocument(DocumentForm form) {
         // TODO: 实现文档上传逻辑   
-        return Result.success("文档上传成功");
+        String result = documentService.uploadAndStore(form.getFile(), form.getDocType());
+        return Result.success(result);
     }
 }
